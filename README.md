@@ -1,1 +1,1 @@
-# M6-DV1-Aesthetics
+# M6 DV1: Aesthetics
