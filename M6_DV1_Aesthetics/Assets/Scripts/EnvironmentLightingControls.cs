@@ -16,6 +16,7 @@ public class EnvironmentLightingControls : MonoBehaviour
         get => (RenderSettings.ambientMode == AmbientMode.Skybox);
         set
         {
+
             RenderSettings.ambientMode = (value) ?
                 AmbientMode.Skybox : AmbientMode.Flat;
             skyboxIntensitySlider.interactable = value;
@@ -38,18 +39,34 @@ public class EnvironmentLightingControls : MonoBehaviour
             skyboxIntensityText.text = value.ToString("F1");
         }
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     private void Start()
     {
         useSkyboxToggle.isOn = UseSkybox;
         skyboxIntensitySlider.value = SkyboxIntensity;
         enableFog.isOn = EnableFog;
+
+        // add event listener on the toggle
+        useSkyboxToggle.onValueChanged.AddListener(OnToggleValueChanged);
     }
 
-    // Update is called once per frame
+    private void OnToggleValueChanged(bool value)
+    {
+        if(value)
+        {
+            RenderSettings.ambientMode = AmbientMode.Skybox; 
+            Debug.Log(value);
+
+        }
+        else
+        {
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            Debug.Log(value);
+        }   
+    }
+
     void Update()
     {
-        Debug.Log(useSkyboxToggle);
-        
+
     }
 }
